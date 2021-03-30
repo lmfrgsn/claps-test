@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
+import clapping from './clapping.svg'
+import './App.css'
 
 function App() {
+  const [claps, setClaps] = useState(0)
+  const [clicking, setClicking] = useState(false)
+
+  useEffect(async () => {
+    const response = await fetch(
+      'https://606368200133350017fd3345.mockapi.io/api/v0/claps?id=27'
+    )
+    const data = await response.json()
+    const [item] = data
+    setClaps(item.claps)
+  }, [])
+
+  console.log(clicking)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="ClapContainer">
+      <button
+        className="ClapButton"
+        onClick={() => setClaps(claps + 1)}
+        onMouseDown={() => setClicking(true)}
+        onMouseLeave={() => setClicking(false)}
+      >
+        <img
+          className={`ClapIcon ${clicking ? 'spinning' : 'no'}`}
+          src={clapping}
+        />
+      </button>
+      <p className="ClapCount">{claps}</p>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
