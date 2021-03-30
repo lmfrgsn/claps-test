@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import clapping from './clapping.svg'
+import clapping from './clap-icon.svg'
 import './App.css'
 
 function App() {
@@ -14,8 +14,6 @@ function App() {
     const [item] = data
     setClaps(item.claps)
   }, [])
-
-  console.log(clicking)
 
   return (
     <div className="ClapContainer">
